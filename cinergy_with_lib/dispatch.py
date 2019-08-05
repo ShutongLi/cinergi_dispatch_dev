@@ -25,8 +25,8 @@ for code in tbl1['TestCode']:
 
 tbl2 = 'https://docs.google.com/spreadsheet/ccc?key=1jFGjp2_QRT1z2YR4DJZwA-OTaj41zpdkUiX_JxBoISU&gid=123788411&output=csv'
 tbl2 = pd.read_csv(tbl2).replace(np.nan, '')
-tbl2 = tbl2.loc[tbl2['token'] != '']
-tbl2['Label'] = [str(i) for i in range(tbl2.shape[0])]
+# tbl2 = tbl2.loc[tbl2['token'] != '']
+# tbl2['Label'] = [str(i) for i in range(tbl2.shape[0])]
 
 
 def testurl(theurl):
