@@ -22,6 +22,8 @@ tbl1['TestCode'] = tbl1['TestCode'].fillna('def f(): return {}')
 for code in tbl1['TestCode']:
     exec(code)
 
+tbl1_base = pd.read_csv('resources/tbl1_2.csv')
+
 
 tbl2 = 'https://docs.google.com/spreadsheet/ccc?key=1jFGjp2_QRT1z2YR4DJZwA-OTaj41zpdkUiX_JxBoISU&gid=123788411&output=csv'
 tbl2 = pd.read_csv(tbl2).replace(np.nan, '')
@@ -47,13 +49,24 @@ def testurl(theurl):
         return False
 
 
-def whole_process(documentID):
-    metadataURLx = construct_md_url(documentID)
-    tree = get_etree(metadataURLx)
-    distlist = get_distributions(tree)
-    token_dist = dists_to_token(distlist)
-    label_actionable = token_to_actionable_menu(tbl2, token_dist)
-    return label_actionable
+def whole_process(documentID, type = 'org'):
+    if type == 'org':
+        metadataURLx = construct_md_url(documentID)
+        tree = get_etree(metadataURLx)
+        distlist = get_distributions(tree)
+        token_dist = dists_to_token(distlist, table=tbl1)
+        label_actionable = token_to_actionable_menu(tbl2, token_dist)
+        return label_actionable
+    elif type == 'base':
+        metadataURLx = construct_md_url(documentID)
+        tree = get_etree(metadataURLx)
+        distlist = get_distributions(tree)
+        token_dist = dists_to_token(distlist, table=tbl1_base)
+        label_actionable = token_to_actionable_menu(tbl2, token_dist)
+        return label_actionable
+    else:
+        print('indicated process type unknown')
+        return {}
 
 
 def construct_md_url(documentID):
@@ -254,9 +267,9 @@ def get_distributions(tree):
     return distlist
 
 
-def dists_to_token(distlist):
+def dists_to_token(distlist, table = tbl1):
     result_list = []
-    f_list = list(tbl1['expression'].dropna())
+    f_list = list(table['expression'].dropna())
     # compile_functions()
     for dist in distlist:
         for f in f_list:
@@ -267,6 +280,7 @@ def dists_to_token(distlist):
     # for result in result_list:
         # print(type(result))
     token_dist = combine_dcts(result_list)
+
     return token_dist
 
 

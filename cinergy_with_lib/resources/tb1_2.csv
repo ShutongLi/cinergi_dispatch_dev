@@ -1,0 +1,23 @@
+token,label,notes,TestCode,applies to,expression,parent
+zip,,,"def testtoken_zip(dist):
+    url = dist.url
+    name = dist.name
+    expr = '(\.zip|\.rar)$'
+    if re.findall(expr, words):
+        if testurl(url):
+            return {'zip': {""name"": name, ""url"": url}}
+        else:
+            return {}
+    else:
+        return {}",,testtoken_zip(dist),
+tabular,,,"def testtoken_tabular(dist):
+    url = dist.url
+    name = dist.name
+    expr = '(\.txt|\.csv|\.tsv|\.xsl|\.xsls)$'
+    if re.findall(expr, words):
+        if testurl(url):
+            return {'tabular': {""name"": name, ""url"": url}}
+        else:
+            return {}
+    else:
+        return {}",,testtoken_tabular(dist),
