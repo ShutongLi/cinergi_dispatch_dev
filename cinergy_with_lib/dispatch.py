@@ -16,15 +16,20 @@ NSMAP = {"gmi":"http://www.isotc211.org/2005/gmi",
     "srv":"http://www.isotc211.org/2005/srv",
     "xlink":"http://www.w3.org/1999/xlink"}
 
-
+#the table for organizational tokens
 tbl1 = pd.read_csv('resources/tbl1.csv')
 tbl1['TestCode'] = tbl1['TestCode'].fillna('def f(): return {}')
+#compile the functions stored in the table
 for code in tbl1['TestCode']:
     exec(code)
 
+#do the same for table for basic file extensions tokens
 tbl1_base = pd.read_csv('resources/tbl1_2.csv')
+tbl1['TestCode'] = tbl1['TestCode'].fillna('def f(): return {}')
+for code in tbl1_base['TestCode']:
+    exec(code)
 
-
+#tbl2 is for mapping tokens to the links to corresponding platforms
 tbl2 = 'https://docs.google.com/spreadsheet/ccc?key=1jFGjp2_QRT1z2YR4DJZwA-OTaj41zpdkUiX_JxBoISU&gid=123788411&output=csv'
 tbl2 = pd.read_csv(tbl2).replace(np.nan, '')
 # tbl2 = tbl2.loc[tbl2['token'] != '']
@@ -270,15 +275,11 @@ def get_distributions(tree):
 def dists_to_token(distlist, table = tbl1):
     result_list = []
     f_list = list(table['expression'].dropna())
-    # compile_functions()
     for dist in distlist:
         for f in f_list:
             function_locals = locals()
             # print(function_locals)
             result_list += [eval(f)]
-    # print(result_list)
-    # for result in result_list:
-        # print(type(result))
     token_dist = combine_dcts(result_list)
 
     return token_dist
@@ -286,8 +287,6 @@ def dists_to_token(distlist, table = tbl1):
 
 def combine_dcts(dct_list):
     # combining a list of dicts into a single dict, duplicated keys will have their values in a list
-    #print(dct_list)
-    #print(len(dct_list))
     combined = {}
     for dct in dct_list:
         # print(dct)

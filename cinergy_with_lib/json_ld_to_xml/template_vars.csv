@@ -1,0 +1,33 @@
+variable,json_path,@ of,exception
+md_creators,$.creator,,0
+creator_profile_url,`this`.creator.url,md_creators,0
+creator_profile_type,`this`.creator.@type,md_creators,0
+creator_profile_name,`this`.creator.name,md_creators,0
+creator_type,`this`.@type,md_creators,0
+creator_rolename,`this`.roleName,md_creators,0
+md_citation,$.citation,,0
+md_desc,$.description,,0
+md_keywords,$.keywords,,0
+md_license,$.license,,0
+md_pp,$.publishingPrinciples,,0
+md_temp_cov,$.temporalCoverage,,0
+md_spatial_cov,$.spatialCoverage,,0
+md_spatial_box,$.spatialCoverage..box,,0
+box_west_long,"@ | split("" "")[0] | split("","")[1]",spatialcoverage,1
+box_east_long,"@ | split("" "")[1] | split("","")[1]",spatialcoverage,1
+box_south_lat,"@ | split("" "")[0] | split("","")[0]",spatialcoverage,1
+box_north_lat,"@ | split("" "")[1] | split("","")[0]",spatialcoverage,1
+temp_begin,$.temporalCoverage | split('/') [1],temporalcoverage,1
+temp_end,$.temporalCoverage | split('/') [2],temporalcoverage,1
+md_url,$.url,,0
+md_id,$.'at_id',,0
+md_type,$.'@type',,0
+md_name,$.name,,0
+md_alter,$.alternateName,,0
+md_date_pub,$.datePublished,,0
+md_version,$.version,,0
+md_id,$.'@id',,0
+md_identifiers,$.identifier,,0
+identifier_type,`this`.@type,md_identifiers,0
+identifier_value,`this`.value,md_identifiers,0
+identifier_pid,`this`.propertyID,md_identifiers,0
